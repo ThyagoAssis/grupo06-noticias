@@ -1,0 +1,41 @@
+
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card">
+            <img src="{{ noticia.imagem.url }}" class="card-img-top" alt="{{ noticia.titulo }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ noticia.titulo }}</h5>
+                <p class="card-text">{{ noticia.conteudo }}</p>
+                <p><strong>Categoria:</strong> {{ noticia.get_categoria_display }}</p>
+
+                <!-- Formulário para adicionar comentário -->
+                <form method="post" action="{% url 'noticia_detail' noticia.pk %}">
+                    {% csrf_token %}
+                    {{ comentario_form.as_p }}
+                    <button type="submit" class="btn btn-primary">Comentar</button>
+                </form>
+
+                <hr>
+
+                <!-- Lista de comentários -->
+                <h5>Comentários:</h5>
+                {% for comentario in comentarios %}
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <p><strong>{{ comentario.autor }}</strong> - {{ comentario.data_comentario }}</p>
+                            <p>{{ comentario.conteudo }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Não há comentários ainda.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <a class="btn btn-warning mt-4" href="{% url 'noticia_edit' noticia.pk %}">Editar Notícia</a>
+        <a class="btn btn-danger mt-4" href="{% url 'noticia_delete' noticia.pk %}">Excluir Notícia</a>
+        <a class="btn btn-secondary mt-4" href="{% url 'noticia_list' %}">Voltar à lista</a>
+    </div>
+{% endblock %}

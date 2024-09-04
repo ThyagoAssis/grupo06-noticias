@@ -1,0 +1,16 @@
+<!-- noticias/templates/noticias/noticia_form.html -->
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container mt-4 mb-5">
+        <h2>{{ view.title }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+        <a class="btn btn-secondary mt-4" href="{% url 'noticia_list' %}">Voltar à lista</a>
+    </div>
+
+{% endblock %}
+

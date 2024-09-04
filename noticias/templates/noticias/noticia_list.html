@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div id="carouselExampleControls" class="carousel slide mt-4">
+            <div class="carousel-inner">
+                {% for noticia in noticias %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                       <img class="d-block w-100" src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}">
+                        <div class="carousel-caption">
+                            <h5>{{ noticia.titulo }}</h5>
+                            <p>{{ noticia.resumo }}</p>
+                            <a class="btn btn-primary mt-4" href="{% url 'noticia_detail' noticia.pk %}">Visitar Notícia</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </a>
+        </div>
+
+        <a class="btn btn-primary mt-4" href="{% url 'noticia_add' %}">Adicionar Notícia</a>
+    </div>
+{% endblock %}
+    <footer class="rodape"></footer>
+
+
+</body>
+</html>
